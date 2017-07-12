@@ -1,5 +1,5 @@
 var http = require('http');
-var csvParser = require('./lib/csvParser')
+var csvParser = require('./lib/csvParser');
 
 http.createServer(function (req, res) {
     res.writeHead(200, {'Content-Type': 'text/plain'});
