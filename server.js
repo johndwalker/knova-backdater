@@ -29,21 +29,19 @@ parseCSV = function(string, callback) {
 }
 
 convertOracleTimestamps = function(data, callback) {
-	var docs = data.filter(function(d) {
-		if (isNaN(moment(d[1], 'MM-DD-YYYY'))) {
-			console.warn('Skipping date conversion for ' + d + '.');
-			return false;
+	var docs = data.reduce(function(result, element) {
+		var date = moment(element[1], 'MM-DD-YYYY');
+		if (!isNaN(date)) {
+			result.push({
+				id: element[0],
+				unixDate: date.unix()
+			});
+		} else {
+			console.warn('Warning: skipping date conversion for \'' + element + '\'.');
 		}
-		return true;
-	}).map(function(d){
-		var date = moment(d[1], 'MM-DD-YYYY');
+		return result;
+	}, []);
 
-		return {
-		    id: d[0],
-		    unixDate: date.unix()
-		};
-	});
-	
 	callback(null, docs);
 }
 
