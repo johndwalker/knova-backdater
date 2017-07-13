@@ -48,9 +48,9 @@ generateSql = function(data, callback) {
 
 	for (i = 1; i < data.length; i++) {
 		updateStatements.push(
-			'UPDATE ARTICLE ' +
-			'SET DATE=' + data[i][1] + ' ' +
-			'WHERE ID = ' + data[i][0]
+			'UPDATE KADMIN.DOCUMENT ' +
+			'SET CREATED=' + data[i][1] + ' ' +
+			'WHERE DOCUMENTID = ' + data[i][0] + ';'
 		);
 
 		console.log(updateStatements[i - 1]);
