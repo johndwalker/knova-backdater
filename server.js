@@ -29,7 +29,13 @@ parseCSV = function(string, callback) {
 }
 
 convertOracleTimestamps = function(data, callback) {
-	var docs = data.map(function(d){
+	var docs = data.filter(function(d) {
+		if (isNaN(moment(d[1], 'MM-DD-YYYY'))) {
+			console.warn('Skipping date conversion for ' + d + '.');
+			return false;
+		}
+		return true;
+	}).map(function(d){
 		var date = moment(d[1], 'MM-DD-YYYY');
 
 		return {
@@ -37,9 +43,6 @@ convertOracleTimestamps = function(data, callback) {
 		    unixDate: date.unix()
 		};
 	});
-
-	// removes the first csv line (column names)
-	docs.shift();
 	
 	callback(null, docs);
 }
