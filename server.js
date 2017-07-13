@@ -47,9 +47,11 @@ generateSql = function(data, callback) {
 	var updateStatements = new Array();
 
 	for (i = 1; i < data.length; i++) {
-		updateStatements.push('UPDATE ARTICLE ' +
-							  'SET DATE=' + data[i][1] + ' ' +
-							  'WHERE ID = ' + data[i][0]);
+		updateStatements.push(
+			'UPDATE ARTICLE ' +
+			'SET DATE=' + data[i][1] + ' ' +
+			'WHERE ID = ' + data[i][0]
+		);
 
 		console.log(updateStatements[i - 1]);
 	}
