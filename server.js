@@ -29,48 +29,52 @@ parseCSV = function(string, callback) {
 }
 
 convertOracleTimestamps = function(data, callback) {
-	// https://momentjs.com/docs/
+	var docs = data.map(function(d){
+		var date = moment(d[1], 'MM-DD-YYYY');
 
-	for (i = 1; i < data.length; i++) {
-		var date = moment(data[i][1], 'MM-DD-YYYY');
-		data[i][1] = date.unix();
-		console.log(date.format('YYYY-MM-DD') + ' -> ' + data[i][1]);
-	}
+		return {
+		    id: d[0],
+		    unixDate: date.unix()
+		};
+	});
 
-	callback(null, data);
+	// removes the first csv line (column names)
+	docs.shift();
+	
+	callback(null, docs);
 }
 
-generateSql = function(data, callback) {
+generateSql = function(docs, callback) {
 	// http://docs.oracle.com/javadb/10.6.2.1/ref/rrefsqlj26498.html
 	// Create update statements for each ID
 
 	var updateStatements = new Array();
 
-	for (i = 1; i < data.length; i++) {
+	for (var i in docs) {
 		updateStatements.push(
 			'UPDATE KADMIN.DOCUMENT ' +
-			'SET CREATED=' + data[i][1] + ' ' +
-			'WHERE DOCUMENTID = ' + data[i][0] + ';'
+			'SET CREATED=' + docs[i].unixDate + ' ' +
+			'WHERE DOCUMENTID = ' + docs[i].id + ';'
 		);
 
-		console.log(updateStatements[i - 1]);
+		console.log(updateStatements[i]);
 	}
 
 	callback(null, updateStatements);
 }
 
-connectExecute = function(data, callback) {
+connectExecute = function(updateStatements, callback) {
 	// queue system to limit concurrent connections to 5
 
 
 
-	callback(null, 'placeholderfor connectExecute');
+	callback(null, 'placeholder for connectExecute');
 }
 
 updateKnova = function(data, callback) {
 	console.log(data);
 	// HTTP POST request on some recontribute endpoint in Knova
-	callback(null, 'placholder for updateKnova');
+	callback(null, 'placeholder for updateKnova');
 }
 
 async.waterfall([
