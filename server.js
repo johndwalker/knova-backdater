@@ -31,14 +31,18 @@ parseCSV = function(string, callback) {
 convertOracleTimestamps = function(data, callback) {
 	var docs = data.reduce(function(result, element) {
 		var date = moment(element[1], 'MM-DD-YYYY');
-		if (!isNaN(date)) {
+
+		if (isNaN(date)) {
+			console.warn('Warning: skipping date conversion for \'' + element + '\': incorrect date format.');
+		} else if (element[0].match(/\d{7}/g) == null) {
+			console.warn('Warning: skipping date conversion for \'' + element + '\': incorrect document ID format.');
+		} else {
 			result.push({
 				id: element[0],
 				unixDate: date.unix()
 			});
-		} else {
-			console.warn('Warning: skipping date conversion for \'' + element + '\'.');
 		}
+
 		return result;
 	}, []);
 
