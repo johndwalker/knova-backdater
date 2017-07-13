@@ -44,14 +44,24 @@ generateSql = function(data, callback) {
 	// http://docs.oracle.com/javadb/10.6.2.1/ref/rrefsqlj26498.html
 	// Create update statements for each ID
 
+	var updateStatements = new Array();
 
+	for (i = 1; i < data.length; i++) {
+		updateStatements.push('UPDATE ARTICLE ' +
+							  'SET DATE=' + data[i][1] + ' ' +
+							  'WHERE ID = ' + data[i][0]);
 
-	callback(null, 'placeholder for generateSql');
+		console.log(updateStatements[i - 1]);
+	}
+
+	callback(null, updateStatements);
 }
 
 connectExecute = function(data, callback) {
-	console.log(data);
 	// queue system to limit concurrent connections to 5
+
+
+
 	callback(null, 'placeholderfor connectExecute');
 }
 
