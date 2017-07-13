@@ -4,11 +4,6 @@ var parse = require('csv-parse');
 var moment = require('moment');
 const async = require("async")
 
-// http.createServer(function (req, res) {
-//     res.writeHead(200, {'Content-Type': 'text/plain'});
-//     res.end();
-// }).listen(8080);
-
 readFile = function (callback) {
 	// How it will work:
 	// Through browser, drag-and-drop upload, save file path in config file
@@ -19,38 +14,38 @@ readFile = function (callback) {
 			return console.log(err);
 		}
 		console.log('Loaded contents of file \'gwava_tid_create_dates.csv\' into memory.');
-		console.log(data);
+		//console.log(data);
 
 		callback(null, data);
 	});
 }
 
+// convert string to array of csv data
 parseCSV = function(string, callback) {
 	console.log('Parsing string to CSV.');
-	parse(string, {comment: '#'}, function(err, output) {
-		console.log(output);
-		console.log('test: ' + output[0][0]);
-		console.log('test: ' + output[0][1]);
-
-		callback(null, output);
+	parse(string, {comment: '#'}, function(err, data) {
+		callback(null, data);
 	});
 }
 
 convertOracleTimestamps = function(data, callback) {
 	// https://momentjs.com/docs/
 
-	// debug
-	console.log('debug date: ' + data[1][1]);
-	var date = moment(data[1][1], 'MM-DD-YYYY');
-	console.log(date.format('YYYY-MM-DD'));
+	for (i = 1; i < data.length; i++) {
+		var date = moment(data[i][1], 'MM-DD-YYYY');
+		data[i][1] = date.unix();
+		console.log(date.format('YYYY-MM-DD') + ' -> ' + data[i][1]);
+	}
 
-	callback(null, 'placeholder for convertOracleTimestamps');
+	callback(null, data);
 }
 
 generateSql = function(data, callback) {
-	console.log(data);
 	// http://docs.oracle.com/javadb/10.6.2.1/ref/rrefsqlj26498.html
 	// Create update statements for each ID
+
+
+
 	callback(null, 'placeholder for generateSql');
 }
 
