@@ -23,10 +23,7 @@
   "homepage": "https://github.com/johndwalker/preserve-gwava-created-date#readme",
   "dependencies": {
     "async": "^2.5.0",
-    "connect": "^3.6.2",
     "csv": "^1.1.1",
     "moment": "^2.0.0",
-    "queue": "^4.2.1",
-    "serve-static": "^1.12.3"
   }
 }
