@@ -1,7 +1,7 @@
 {
   "name": "preserve-gwava-created-date",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple script to convert gwava dates to unix timestamps and update the Oracle database.",
   "main": "server.js",
   "directories": {
     "lib": "lib",
@@ -24,6 +24,10 @@
   "dependencies": {
     "async": "^2.5.0",
     "csv": "^1.1.1",
+    "debug": "^2.6.8",
+    "minimist": "^1.2.0",
     "moment": "^2.0.0",
+    "oracledb": "^1.13.1",
+    "password-prompt": "^1.0.2"
   }
 }
