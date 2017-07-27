@@ -30,7 +30,6 @@
     "minimist": "^1.2.0",
     "moment": "^2.0.0",
     "oracledb": "^1.13.1",
-    "password-prompt": "^1.0.2",
-    "winston-log-and-exit": "^1.0.6"
+    "password-prompt": "^1.0.2"
   }
 }
