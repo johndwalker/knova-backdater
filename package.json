@@ -26,6 +26,7 @@
     "colors": "^1.1.2",
     "csv": "^1.1.1",
     "debug": "^2.6.8",
+    "knova-recontributor": "0.0.22",
     "log4js": "^2.3.0",
     "minimist": "^1.2.0",
     "moment": "^2.0.0",
