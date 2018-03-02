@@ -9,6 +9,23 @@ Utility script used during knowledgebase migrations to backdate knova-articles' 
   - creates `./processedDocs.csv` for all articles successfully processed
 - recontributes each article by calling the `recontributeUrl (-s)` replacing `{id}` with the articleID
 
+#### Example execution:
+```/bin/bash
+node ./lib/pgcd.js -v -f "/path/to/file.csv" -i "oracleServerAddress" -p 1521 -t "dbOracleSID" -u "dbUser" -s "http://recontributeUrlWith{id}"
+```
+
+### Docker Usage
+
+#### Steps
+- Build an image using the Dockerfile at current location: `docker build -t knova .`
+- Create docker container from image mounting in the csv to be used: `docker run --name knova -v '/wrk/public/tmp/Attachmate-backdateTIDs.csv:/app/articles.csv' -t knova`
+- Get into the container's shell: `docker exec -it knova /bin/bash`
+- Run the utility: `node ./lib/pgcd.js -v -f "/app/articles.csv" -i "oracleServerAddress" -p 1521 -t "dbOracleSID" -u "dbUser" -s "http://recontributeUrlWith{id}"`
+- Exit from the container's shell: `exit`
+- Stop & Remove the container if necessary: `docker stop knova && docker rm knova`
+
+### Local Environment Usage
+
 #### Installation steps:
 - Environment pre-requisites without using Docker: 
   1. [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
