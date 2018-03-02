@@ -1,4 +1,4 @@
-# Knova Backdate Utility
+# knova-backdater
 Utility script used during knowledgebase migrations to backdate knova-articles' created-date:
 - reads/parses csv file with two expected order-dependent columns: articleIDs and backdate in `MM-DD-YYYY` format
 - converts dates from csv into oracle unix timestamps
